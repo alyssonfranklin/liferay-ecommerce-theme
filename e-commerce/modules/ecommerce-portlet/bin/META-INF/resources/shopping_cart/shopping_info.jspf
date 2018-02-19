@@ -1,0 +1,69 @@
+<%-- 
+/*
+ * Copyright (C) 2005-present Rivet Logic Corporation.
+ * 
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; version 3 of the License.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, write to the Free Software Foundation, Inc., 51
+ * Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ */
+--%>
+<% if(null != cartItemsIdsList && !cartItemsIdsList.isEmpty()){ %>   
+	<liferay-ui:panel id="checkout-panel" collapsible="false" cssClass="metadata" extended="true" markupView="lexicon" title="ecommerce-shipping-information">
+
+	<div class="alert alert-info">
+      	<liferay-util:buffer var="requiredMark">
+		<span class="icon-asterisk text-warning">
+			<span class="hide-accessible"><liferay-ui:message key="required" /></span>
+		</span>
+		</liferay-util:buffer>
+      
+      	<liferay-ui:message arguments="<%= requiredMark %>" key="ecommerce-all-fields-marked-with-x-are-required" translateArguments="<%= false %>" />
+	</div>
+              
+    <div id="page-reload-warning" class="alert alert-warning hide">
+    	<liferay-ui:message key="ecommerce-reload-message-checkout" />
+    </div>
+    
+    <aui:form method="post" name="form-checkout">		
+		<aui:fieldset >      
+			<liferay-ui:error key="error-information-required" message="ecommerce-checkout-information-required-not-found" />    	
+			<div class="lfr-form-row">
+				<div class="row-fields">			       
+		       		<aui:col width="<%= 50 %>">
+						<aui:input label="Email Address" type="text" id="email" value="" name="email" placeholder="Email Address" required="true" tabindex="1">
+							<aui:validator name="email" />
+						</aui:input>
+		              	<aui:input label="Address line 1" type="text" id="street1" value="" name="address1" placeholder="Street Address" required="true" tabindex="3"/>
+		              	<aui:input label="City" type="text" id="city" value="" name="city" placeholder="City" required="true" tabindex="5"/>
+		              	<aui:input label="Postal Code" type="text" id="postal" value="" name="postalCode" placeholder="Postal Code" tabindex="7"/>
+		              	<aui:input label="Phone" type="text" id="phone" value="" name="phone" placeholder="Phone" tabindex="9"/>
+		       		</aui:col>			
+			 		<aui:col width="<%= 50 %>">
+		            	<aui:input lable="Name" type="text" id="name" value="" name="name" placeholder="Full Name" required="true" tabindex="2"/>
+		              	<aui:input label="Address line 2" type="text" id="street2" value="" name="address2" placeholder="Building/Apt/Suite" tabindex="4"/>
+		              	<aui:input label="State/Province" type="text" id="State" value="" name="stateProvince" placeholder="State" required="true" tabindex="6"/>
+		              	<aui:select label="Country" id="country" name="country" required="true" tabindex="8">
+		                	<%@ include file="/shopping_cart/options_country.jspf" %>
+		              	</aui:select>  
+			 		</aui:col>
+				</div>
+			</div>			
+		</aui:fieldset>						
+		<aui:button-row>
+			<c:if test="<%= ecommerceGroupServiceConfiguration.enablePaypal() %>">				
+				<aui:button cssClass="btn btn-lg btn-primary" id="btn-paypal-checkout" value="ecommerce-button-paypal-checkout" />				
+			</c:if>           	
+            	<aui:button cssClass="btn btn-lg btn-primary" id="btn-checkout" value="ecommerce-button-offline-checkout" />	
+		</aui:button-row>
+	</aui:form>
+	</liferay-ui:panel>
+<% } %>

@@ -1,0 +1,140 @@
+{
+	"themeId" : "ecommercetheme_WAR_ecommercetheme",
+	"layoutTemplateId": "1_column",
+	"publicPages": [
+		{
+			"columns": [
+				[
+					{
+                        "portletId": "com_liferay_journal_content_web_portlet_JournalContentPortlet",
+                        "portletPreferences": {
+                            "articleId": "Jumbotron.xml",
+                            "groupId": "${groupId}",
+                            "portletSetupShowBorders": "false",
+                            "portletSetupPortletDecoratorId": "barebone"
+                        }
+                    },
+                    {
+                    	"portletId": "com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet",
+                    	"portletPreferences": {
+					        "displayStyleGroupId":"${groupId}",
+					        "displayStyle":"ddmTemplate_SMALL_VIEW-1.0.0",
+					        "portletSetupShowBorders": "false",
+					        "portletSetupPortletDecoratorId": "barebone"
+			  			}		
+					}
+				]
+			],
+			"friendlyURL": "/home",
+			"name": "Home",
+			"title": "Home"
+		},
+		{
+			"columns": [
+				[
+                    {
+                    	"portletId": "com_liferay_asset_tags_navigation_web_portlet_AssetTagsNavigationPortlet",
+                    	"portletPreferences": {
+							"maxAssetTags":"200",
+							"displayStyle":"cloud",
+							"displayStyleGroupId":"${groupId}",
+							"showAssetCount":"false",
+							"classNameId":"true",
+							"showZeroAssetCount":"false",
+							"portletSetupUseCustomTitle":"true",
+							"portletSetupTitle_en_US":"Categories",
+							"portletSetupShowBorders": "false",
+							"portletSetupPortletDecoratorId": "barebone"
+			  			}		
+					}
+				],
+				[
+					{
+                    	"portletId": "com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet",                    	
+                    	"portletPreferences": {
+					        "displayStyleGroupId":"${groupId}",
+					        "displayStyle":"ddmTemplate_SMALL_VIEW-1.0.0",
+					        "portletSetupShowBorders": "false",
+					        "portletSetupPortletDecoratorId": "barebone"
+			  			}		
+					}
+				]
+			],
+			"layoutTemplateId": "2_columns_ii",
+			"friendlyURL": "/categories",
+			"name": "Categories",
+			"title": "Categories"
+		},
+		{
+			"columns": [
+				[
+                    {
+                    	"portletId": "com_liferay_journal_content_web_portlet_JournalContentPortlet",
+						"portletPreferences": {
+                            "articleId": "Contact Us.xml",
+                            "groupId": "${groupId}",
+                            "portletSetupShowBorders": "false",
+                            "portletSetupPortletDecoratorId": "barebone"
+                        }
+                    }
+				]	
+			],
+			"friendlyURL": "/contact-us",
+			"name": "Contact Us",
+			"title": "Contact Us"
+		},
+		{
+			"columns": [
+				[
+                    {
+                    	"portletId": "com_liferay_journal_content_web_portlet_JournalContentPortlet",
+						"portletPreferences": {
+                            "articleId": "About Us.xml",
+                            "groupId": "${groupId}",
+                            "portletSetupShowBorders": "false",
+                            "portletSetupPortletDecoratorId": "barebone"
+                        }
+                    }
+				]	
+			],
+			"friendlyURL": "/about-us",
+			"name": "About Us",
+			"title": "About Us"
+		},
+		{
+			"columns": [
+				[
+					{
+						"portletId": "com_rivetlogic_ecommerce_portlet_ShoppingCart",
+						"portletPreferences": {
+					        "portletSetupShowBorders": "false",
+					        "portletSetupPortletDecoratorId": "barebone"
+			  			}	
+					}
+				]
+			],
+			"friendlyURL": "/cart",
+			"name": "Cart",
+			"title": "Cart"
+		},
+		{
+			"columns": [
+				[
+					{
+                    	"portletId": "com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet",                    	
+                    	"portletPreferences": {
+                    		"displayStyleGroupId":"${groupId}",
+					    	"displayStyle":"ddmTemplate_BIG_VIEW-1.0.0",
+					        "portletSetupShowBorders": "false",
+					        "portletSetupPortletDecoratorId": "barebone"
+			  			}		
+					}
+				]
+			],
+			"friendlyURL": "/view",
+			"name": "View",
+			"title": "View",
+			"hidden": "true"
+		}
+	]
+}

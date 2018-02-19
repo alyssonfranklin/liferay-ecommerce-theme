@@ -1,2 +1,2 @@
-# liferay-ecommerce-theme
-Liferay E-Commerce Theme
+# liferay-dxp-ecommerce
+Liferay DXP E Commerce Theme

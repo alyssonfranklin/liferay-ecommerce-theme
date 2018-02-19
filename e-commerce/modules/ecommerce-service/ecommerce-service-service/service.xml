@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.0.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_7_0_0.dtd">
+
+<service-builder package-path="com.rivetlogic.ecommerce">
+	<author>rivetlogic</author>
+	<namespace>rivetlogic_ecommerce</namespace>
+
+	<entity name="ShoppingOrder" local-service="true" remote-service="false" human-name="Shopping Order" uuid="true">
+
+		<!-- PK fields -->
+
+		<column name="orderId" type="long" primary="true" />
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="orderStatus" type="String" /><!-- In process, Shipped -->
+
+		<!-- Shipping Details -->
+		<column name="customerEmail" type="String" />
+		<column name="customerName" type="String" />
+		<column name="customerPhone" type="String" />
+		<column name="shippingAddress1" type="String" />
+		<column name="shippingAddress2" type="String" />
+		<column name="shippingCity" type="String" />
+		<column name="shippingPostalCode" type="String" />
+		<column name="shippingStateProvince" type="String" />
+		<column name="shippingCountry" type="String" />
+		<column name="total" type="double" />
+		<column name="notes" type="String" />
+
+		<!-- Order -->
+
+		<order by="desc">
+			<order-column name="orderId" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<finder name="OrderStatusAndUserId" return-type="Collection">
+			<finder-column name="orderStatus" />
+			<finder-column name="userId" />
+		</finder>
+		
+		<finder name="GroupOrderStatusAndUserId" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column name="orderStatus" />
+			<finder-column name="userId" />
+		</finder>
+
+		<finder name="GroupId" return-type="Collection">
+			<finder-column name="groupId" />
+		</finder>
+
+		<finder name="GroupIdAndOrderStatus" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column name="orderStatus" />
+		</finder>
+
+	</entity>
+
+    <entity name="ShoppingOrderItem" local-service="true" remote-service="false" human-name="Shopping Order Item" uuid="true">
+    
+    	<!-- PK fields -->
+    	
+        <column name="itemId" type="long" primary="true" />
+        
+        <!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+		
+    	<!-- Foreign Fields -->
+    	
+    	<column name="orderId" type="long" />
+    	
+    	<!-- Other Fields -->
+    	
+        <column name="productId" type="String" />		
+        <column name="quantity" type="int" />
+        <column name="price" type="double" />
+        
+        <!-- Order -->
+
+		<order by="desc">
+			<order-column name="itemId" />
+		</order>
+
+		<!-- Finder methods -->
+		
+		<finder name="OrderId" return-type="Collection">
+			<finder-column name="orderId" />
+		</finder>
+		
+		<finder name="OrderAndProductId" return-type="ShoppingOrderItem">
+			<finder-column name="orderId" />
+			<finder-column name="productId" />
+		</finder>
+		
+    </entity>
+    
+    <entity name="Notification" local-service="true" remote-service="false"  uuid="true">
+
+    	<!-- PK fields -->
+		<column name="notificationId" type="long" primary="true" />
+		
+    	<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+    	<!-- Audit fields -->
+    	
+    	<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+		
+		<!-- Foreign Fields -->
+    	
+    	<column name="orderId" type="long" />
+    	
+    	<!-- Other fields -->
+		
+    	<column name="subject" type="String" />
+    	<column name="body" type="String" />
+    	<column name="sender" type="String" />
+    	<column name="recipients" type="String" />
+
+    	<!-- Order -->
+
+		<order by="desc">
+			<order-column name="notificationId" />
+		</order>
+
+		<!-- Finder methods -->
+		
+        <finder name="OrderId" return-type="Collection">
+            <finder-column name="orderId" />
+        </finder>
+        
+    </entity>
+
+</service-builder>

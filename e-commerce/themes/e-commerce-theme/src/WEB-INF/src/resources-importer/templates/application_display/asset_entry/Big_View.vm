@@ -1,0 +1,165 @@
+##The MIT License (MIT)
+
+##Copyright (c) 2014 - Vincent Gabriel
+
+##Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+##The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+##THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+#set ($id = $themeDisplay.getRequest().getParameter("id") )
+
+
+#if (!$entries.isEmpty())
+
+#foreach ($entry in $entries)
+  #set( $renderer = $entry.getAssetRenderer() )
+  #set( $className = $renderer.getClassName() )
+  #set( $journalArticle = $renderer.getArticle() )
+  #if ($journalArticle.getArticleId() == $id)
+    #if( $className == "com.liferay.journal.model.JournalArticle" )
+      #set( $journalArticle = $renderer.getArticle() )
+      #set( $document = $saxReaderUtil.read($journalArticle.getContent()) )
+      #set( $rootElement = $document.getRootElement() )
+      #set( $xPathSelector = $saxReaderUtil.createXPath("dynamic-element[@name='ProductTitle']") )
+      #set( $productTitle = $xPathSelector.selectSingleNode($rootElement).getStringValue() )
+      #set( $xPathSelector = $saxReaderUtil.createXPath("dynamic-element[@name='ProductImages']") )
+      #set( $productImages = $xPathSelector.selectSingleNode($rootElement).getStringValue() )
+      #set( $xPathSelector = $saxReaderUtil.createXPath("dynamic-element[@name='ProductImages']") )
+      #set( $images = $xPathSelector.selectNodes($rootElement) )
+      #set( $xPathSelector = $saxReaderUtil.createXPath("dynamic-element[@name='link']") )
+      #set( $link = $xPathSelector.selectSingleNode($rootElement).getStringValue() ) 
+      #set( $xPathSelector = $saxReaderUtil.createXPath("dynamic-element[@name='ShortDescription']") )
+      #set( $shortDescription = $xPathSelector.selectSingleNode($rootElement).getStringValue() )
+      #set( $xPathSelector = $saxReaderUtil.createXPath("dynamic-element[@name='ListPrice']") )
+      #set( $listPrice = $xPathSelector.selectSingleNode($rootElement).getStringValue() )
+      #set( $xPathSelector = $saxReaderUtil.createXPath("dynamic-element[@name='SalePrice']") )
+      #set( $salePrice = $xPathSelector.selectSingleNode($rootElement).getStringValue() )
+      #set( $xPathSelector = $saxReaderUtil.createXPath("dynamic-element[@name='WarningBadge']") )
+      #set( $warning_badge = $xPathSelector.selectSingleNode($rootElement).getStringValue() )
+      #set( $xPathSelector = $saxReaderUtil.createXPath("dynamic-element[@name='LongDescription']") )
+      #set( $longDescription = $xPathSelector.selectSingleNode($rootElement).getStringValue() )
+      #set( $xPathSelector = $saxReaderUtil.createXPath("dynamic-element[@name='Specs']") )
+      #set( $specs = $xPathSelector.selectSingleNode($rootElement).getStringValue() )
+      #set( $xPathSelector = $saxReaderUtil.createXPath("dynamic-element[@name='articleId']") )
+      #set( $articleId = $xPathSelector.selectSingleNode($rootElement).getStringValue() )
+      #set( $currURL = $themeDisplay.getURLCurrent() )
+      #set( $currPageFriendlyURL = $themeDisplay.getLayout().getFriendlyURL())
+      #if ( $validator.isNotNull($currPageFriendlyURL) && $currURL.contains($currPageFriendlyURL))
+        #set( $addLink = $themeDisplay.getURLCurrent().replace($currPageFriendlyURL, "/cart"))					
+      #else
+        #set( $addLink = "$currURL/cart" )					
+      #end
+    #end
+            
+    ##    #if ($validator.isNotNull($salePrice))
+    ##        #set( $salePrice = $listPrice )
+    ##    #end
+
+    <div id="product-list-message"></div>
+    <div class="product-detail-view">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="detail-box">
+            <div class="header">
+              Product Images
+            </div>
+            <div class="body">
+              <div class="row">
+                <div class="col-md-10">
+                  <div class="main-image">
+                    <img src="$productImages">
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="side-images">
+                    #foreach ($image in $images)
+                      <div class="side-image">
+                        <a href="javascript:;">
+                          <img 
+                            class="img-responsive"
+                            src="$image.getStringValue()" 
+                            data-src="$image.getStringValue()">
+                        </a>
+                      </div>
+                      
+                    #end
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="detail-box">
+            <div class="header">
+              $productTitle
+              #if (!$warning_badge.trim().equals(""))
+                <div class="pull-right"><span class="badge badge-warning">$warning_badge</span></div>
+              #end
+            </div>
+            <div class="body">
+              <h5>Description</h5>
+              <p class="muted">$shortDescription</p>
+                            
+              <dl class="dl-horizontal">
+              #if (!$salePrice.trim().equals(""))
+                  <dt>List Price</dt>
+                  <dd><s>$$listPrice</s></dd>
+                  <dt>Sale Price</dt>
+                  <dd><strong>$$salePrice</strong></dd>
+              #else
+                  <dt>List Price</dt>
+                  <dd>$$listPrice</dd>
+                  ## kmarcos added:
+                  #set( $salePrice = $listPrice )
+              #end
+              </dl>
+                        
+              <div id="product-list" class="control-group">
+                <a 
+                  class="btn btn-border btn-sm add-to-cart-js"
+                  data-article-id="$journalArticle.getArticleId()",
+                  data-product-title="$productTitle",
+                  data-sale-price="$salePrice",
+                  data-add-link="$addLink" 
+                >
+                  Add to Cart
+                </a> 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+
+          <ul class="nav nav-tabs nav-justified" role="tablist">
+            <li class="active" role="presentation">
+              <a aria-controls="fields" href="#description" data-toggle="tab" role="tab">
+                Description
+              </a>
+            </li>
+            <li role="presentation">
+              <a aria-controls="settings" href="#specification" data-toggle="tab" role="tab">
+                Specification
+              </a>
+            </li>
+          </ul>
+          
+          <div class="tab-content">
+            <div class="tab-pane active fade in" id="description" role="tabpanel">
+              $longDescription
+            </div>
+            <div class="tab-pane fade" id="specification" role="tabpanel">
+              $specs
+            </div>
+          </div>  
+        </div>
+      </div>
+    </div>
+        #end
+    #end
+#end
