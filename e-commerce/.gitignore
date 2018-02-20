@@ -47,6 +47,7 @@
 /modules/**/.gitignore
 /modules/**/.sass-cache/
 /modules/**/bin/
+/modules/**/bin/*
 /plugins-sdk/build.*.properties
 /plugins-sdk/dist
 build/
