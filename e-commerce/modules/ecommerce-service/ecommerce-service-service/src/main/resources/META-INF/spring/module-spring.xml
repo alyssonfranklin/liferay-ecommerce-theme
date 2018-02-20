@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean class="com.rivetlogic.ecommerce.service.impl.NotificationLocalServiceImpl" id="com.rivetlogic.ecommerce.service.NotificationLocalService" />
+	<bean class="com.rivetlogic.ecommerce.service.persistence.impl.NotificationPersistenceImpl" id="com.rivetlogic.ecommerce.service.persistence.NotificationPersistence" parent="basePersistence" />
+	<bean class="com.rivetlogic.ecommerce.service.impl.ShoppingOrderLocalServiceImpl" id="com.rivetlogic.ecommerce.service.ShoppingOrderLocalService" />
+	<bean class="com.rivetlogic.ecommerce.service.persistence.impl.ShoppingOrderPersistenceImpl" id="com.rivetlogic.ecommerce.service.persistence.ShoppingOrderPersistence" parent="basePersistence" />
+	<bean class="com.rivetlogic.ecommerce.service.impl.ShoppingOrderItemLocalServiceImpl" id="com.rivetlogic.ecommerce.service.ShoppingOrderItemLocalService" />
+	<bean class="com.rivetlogic.ecommerce.service.persistence.impl.ShoppingOrderItemPersistenceImpl" id="com.rivetlogic.ecommerce.service.persistence.ShoppingOrderItemPersistence" parent="basePersistence" />
+</beans>

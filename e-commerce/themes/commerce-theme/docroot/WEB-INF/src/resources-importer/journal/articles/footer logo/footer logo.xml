@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-
-<root available-locales="en_US" default-locale="en_US">
-	<dynamic-element name="footer_logo" type="document_library" index-type="keyword" index="0">
-		<dynamic-content language-id="en_US" id="17132"><![CDATA[[$FILE=logo.png$]]]></dynamic-content>
-	</dynamic-element>
-</root>

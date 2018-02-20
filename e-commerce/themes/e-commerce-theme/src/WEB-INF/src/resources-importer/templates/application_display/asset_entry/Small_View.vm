@@ -1,0 +1,110 @@
+##The MIT License (MIT)
+
+##Copyright (c) 2014 - Vincent Gabriel
+
+##Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+##The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+##THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+##
+## This template can be used to modify the look of a specific
+## application.
+##
+## Please use the left panel to quickly add commonly used variables.
+## Autocomplete is also available and can be invoked by typing "$".
+##
+
+
+<div id="product-list-message"></div>
+    <ul id="product-list" class="list-unstyled">
+
+    #if (!$entries.isEmpty())
+        #set( $rowIndex = 1 )
+        #foreach ($entry in $entries)
+            #set($renderer = $entry.getAssetRenderer() )
+            #set($className = $renderer.getClassName() )
+			
+            #if( $className == "com.liferay.journal.model.JournalArticle" )
+                #set( $journalArticle = $renderer.getArticle() )
+                #set( $document = $saxReaderUtil.read($journalArticle.getContent()) ) 
+                #set( $rootElement = $document.getRootElement() )
+                #set( $xPathSelector = $saxReaderUtil.createXPath("dynamic-element[@name='ProductTitle']") )
+                #set( $productTitle = $xPathSelector.selectSingleNode($rootElement).getStringValue() )
+                #set( $xPathSelector = $saxReaderUtil.createXPath("dynamic-element[@name='ProductImages']") )
+                #set( $productImages = $xPathSelector.selectSingleNode($rootElement).getStringValue() )
+                #set( $xPathSelector = $saxReaderUtil.createXPath("dynamic-element[@name='link']") )
+                #set( $link = $xPathSelector.selectSingleNode($rootElement).getStringValue() ) 
+                #set( $xPathSelector = $saxReaderUtil.createXPath("dynamic-element[@name='ShortDescription']") )
+                #set( $shortDescription = $xPathSelector.selectSingleNode($rootElement).getStringValue() )
+                #set( $xPathSelector = $saxReaderUtil.createXPath("dynamic-element[@name='SalePrice']") )
+                #set( $salePrice = $xPathSelector.selectSingleNode($rootElement).getStringValue() )
+                #set( $xPathSelector = $saxReaderUtil.createXPath("dynamic-element[@name='ListPrice']") )
+                #set( $listPrice = $xPathSelector.selectSingleNode($rootElement).getStringValue() )
+                #set( $currURL = $themeDisplay.getURLCurrent() )
+                #set( $currPageFriendlyURL = $themeDisplay.getLayout().getFriendlyURL())
+                #if ( $validator.isNotNull($currPageFriendlyURL) && $currURL.contains($currPageFriendlyURL))
+                  #set( $addLink = $themeDisplay.getURLCurrent().replace($currPageFriendlyURL, "/cart"))					
+                #else
+                  #set( $addLink = "$currURL/cart" )					
+                #end
+                #set( $viewLink = $addLink.replace("/cart","/view"))
+				
+                #if ($validator.isNotNull($salePrice))
+                    #set( $salePrice = $listPrice )
+                #end                
+            #end
+                
+			#if($validator.isNotNull($productTitle))
+        #if($rowIndex == 1)
+          <li class="row">
+        #end
+          <div class="col-md-4">
+            
+              <div class="card image-card">
+                  <div class="card-bg">
+                      <img 
+                          alt="thumbnail"
+                          class="img-responsive" 
+                          src="$productImages"
+                      >
+                  </div>
+                  <div class="card-body">
+                      <div class="card-row">
+                          <div class="autofit-col autofit-col-expand">
+                              <a class=" card-title" href="#1">
+                                  $productTitle
+                              </a>
+                              <div class="card-subtitle">
+                                  $shortDescription
+                              </div>
+                          </div>
+                      </div>
+                      <div class="card-row">
+                        <div class="card-btns">							
+                          <a 
+                            class="btn btn-border-prim btn-sm add-to-cart-js" 
+                            data-article-id="$journalArticle.getArticleId()",
+                            data-product-title="$productTitle",
+                            data-sale-price="$salePrice",
+                            data-add-link="$addLink"
+                          >
+                              Add to Cart
+                          </a> 
+                          <a href="$viewLink?id=$journalArticle.getArticleId()" class="btn btn-border btn-sm">View</a>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+
+          </div>
+        #if($rowIndex == 3 )
+          #set( $rowIndex = 0)
+          </li>
+        #end
+        #set( $rowIndex = $rowIndex + 1)
+				#set( $productTitle = 'null')
+			#end
+        #end
+    #end        
+    </ul>

@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.rivetlogic.ecommerce.model.Notification">
+		<field name="uuid" type="String" />
+		<field name="notificationId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="orderId" type="long" />
+		<field name="subject" type="String" />
+		<field name="body" type="String">
+			<hint-collection name="CLOB" />
+		</field>
+		<field name="sender" type="String" />
+		<field name="recipients" type="String" />
+	</model>
+	<model name="com.rivetlogic.ecommerce.model.ShoppingOrder">
+		<field name="uuid" type="String" />
+		<field name="orderId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="orderStatus" type="String" />
+		<field name="customerEmail" type="String" />
+		<field name="customerName" type="String" />
+		<field name="customerPhone" type="String" />
+		<field name="shippingAddress1" type="String" />
+		<field name="shippingAddress2" type="String" />
+		<field name="shippingCity" type="String" />
+		<field name="shippingPostalCode" type="String" />
+		<field name="shippingStateProvince" type="String" />
+		<field name="shippingCountry" type="String" />
+		<field name="total" type="double" />
+		<field name="notes" type="String" />
+	</model>
+	<model name="com.rivetlogic.ecommerce.model.ShoppingOrderItem">
+		<field name="uuid" type="String" />
+		<field name="itemId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="orderId" type="long" />
+		<field name="productId" type="String" />
+		<field name="quantity" type="int" />
+		<field name="price" type="double" />
+	</model>
+</model-hints>

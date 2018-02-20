@@ -1,0 +1,26 @@
+.product-detail-view {
+  a {
+    color: #869cad;
+  }
+
+  .tab-content {
+    padding: 10px;
+  }
+
+  .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+    color: #869cad;
+  }
+}
+
+.main-image {
+  text-align: center;
+  img {
+    max-height: 300px;
+  }
+}
+
+.side-image {
+  img {
+    max-height: 130px;
+  }
+}
